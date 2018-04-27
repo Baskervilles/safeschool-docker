@@ -1,0 +1,70 @@
+version: '3.5'
+
+services:
+
+# mysql service 
+    mysql:
+        image: mysql:5.7.17
+        restart: always
+        env_file:
+          - ./.env
+        container_name: mysqldb  
+        ports: 
+          - "4306:3306"  
+        volumes:
+          - db_data:/var/lib/mysql"
+        networks:
+          safeschool_network:
+            aliases:
+              - mysql
+
+# apache service
+    #apache:
+        #image: httpd:2.4
+        #ports:
+          #- "81:80"
+        #restart: always
+        #volumes:
+          #- "./volumes/apache2/logs:/var/log/apache2/"
+        #links:
+            #- php
+        #networks:
+          #crv_dev_network:
+            #aliases:
+              #- apache
+
+# apache + php service
+    apache_php:
+        image: php:5.6-apache
+        restart: always
+        container_name: webserver
+        env_file:
+          - ./.env
+        volumes:
+          - "./volumes/php/app/cache:/var/www/dev/app/cache/:rw"
+          - "./volumes/php/app/logs:/var/www/dev/app/logs/:rw"
+          - "./volumes/.composer:/var/www/.composer"
+          - "./app:/var/www/dev"
+        links:
+          - mysql  
+        networks:
+          safeschool_network:
+            aliases:
+              - php-apache
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:4.7
+        ports:
+          - "8000:80"
+        restart: always  
+        env_file:
+          - ./.env  
+        links:
+          - mysql         
+
+volumes:
+  db_data: {}
+
+networks:
+  safeschool_network:
+    driver: bridge
