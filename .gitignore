@@ -53,6 +53,6 @@ workspace.xml
 
 # Docker
 /volumes/*
-/app/safeSchool/
+/app/safeSchool/*
 ```
 
