@@ -1,3 +1,0 @@
-safe_school_user_homepage:
-    path:     /
-    defaults: { _controller: SafeSchoolUserBundle:Default:index }

@@ -51,14 +51,7 @@
 .idea/*
 workspace.xml
 
-# Blog
-!web/blog/.htaccess
-web/blog/*
-/web/blog/*
-
-# Documentation Temp Files
-*.~vsdx
-
 # Docker
 /volumes/*
 ```
+

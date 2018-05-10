@@ -37,30 +37,47 @@ services:
     apache_php:
         image: php:5.6-apache
         restart: always
+        build: ./php-5.6-apache
         container_name: webserver
+        ports:
+          - "8800:80"
         env_file:
           - ./.env
+
         volumes:
-          - "./volumes/php/app/cache:/var/www/dev/app/cache/:rw"
-          - "./volumes/php/app/logs:/var/www/dev/app/logs/:rw"
+          - "./volumes/php/app/cache:/var/www/html/safeSchool/app/cache/:rw"
+          - "./volumes/php/app/logs:/var/www/html/safeSchool/app/logs/:rw"
           - "./volumes/.composer:/var/www/.composer"
-          - "./app/safeschool:/var/www/dev"
+          - "./php-5.6-apache/php.ini:/usr/local/etc/php/phpini"          #- "./custom-script.sh:/usr/local/bin/custom-script.sh"
+          - "./app/safeSchool:/var/www/html/safeSchool"
+        #command:
+          #- custom-script.sh  
         links:
           - mysql  
         networks:
           safeschool_network:
             aliases:
-              - php-apache
+              - apache_php
 
+# phpmyadmin service
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:4.7
+        container_name: php_your_admin
         ports:
-          - "8000:80"
+          - "8100:80"
         restart: always  
-        env_file:
-          - ./.env  
+        #env_file:
+          #- ./.env  
+        environment:
+          PMA_HOST: mysql
+          MYSQL_USERNAME: root
+          MYSQL_ROOT_PASSWORD: root_dbpassword 
         links:
-          - mysql         
+          - mysql   
+        networks:
+          safeschool_network:
+            aliases:
+              - phpmyadmin        
 
 volumes:
   db_data: {}
