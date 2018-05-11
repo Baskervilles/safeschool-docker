@@ -53,6 +53,11 @@ workspace.xml
 
 # Docker
 /volumes/*
-/app/safeSchool/*
+
+# exclude safeSchool
+/app/safeSchool/
+
+# COMMIT EMPTY FOLDER app/
+!app/.gitkeep
 ```
 
