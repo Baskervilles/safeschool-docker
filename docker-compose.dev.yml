@@ -47,7 +47,7 @@ services:
         volumes:
           - "./volumes/php/app/cache:/var/www/html/safeSchool/app/cache/:rw"
           - "./volumes/php/app/logs:/var/www/html/safeSchool/app/logs/:rw"
-          - "./volumes/.composer:/var/www/.composer"
+          - "./volumes/.composer:/var/www/html/.composer/:rw"
           - "./php-5.6-apache/php.ini:/usr/local/etc/php/php.ini"          #- "./custom-script.sh:/usr/local/bin/custom-script.sh"
           - "./app/safeSchool:/var/www/html/safeSchool"
         #command:
@@ -65,9 +65,7 @@ services:
         container_name: php_your_admin
         ports:
           - "8100:80"
-        restart: always  
-        #env_file:
-          #- ./.env  
+        restart: always   
         environment:
           PMA_HOST: mysql
           MYSQL_USERNAME: root
