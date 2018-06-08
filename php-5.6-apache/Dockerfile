@@ -14,7 +14,7 @@ RUN composer --version
 RUN apt-get update && apt-get install -y git
 RUN git --version && \
 	apt-get install -y zlib1g-dev && \
-    docker-php-ext-install zip && \
+        zip && \
 	apt-get -y autoremove && \
     apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
