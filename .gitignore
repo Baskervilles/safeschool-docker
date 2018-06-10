@@ -59,5 +59,6 @@ workspace.xml
 
 # COMMIT EMPTY FOLDER app/
 !app/.gitkeep
+!volumes/.gitkeep
 ```
 

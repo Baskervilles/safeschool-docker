@@ -14,7 +14,7 @@ RUN composer --version
 RUN apt-get update && apt-get install -y git
 RUN git --version && \
 	apt-get install -y zlib1g-dev && \
-        zip && \
+        docker-php-ext-install zip && \
 	apt-get -y autoremove && \
     apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -22,6 +22,6 @@ RUN git --version && \
 # add user to group for volume sharing RUN groupadd 1000
 #RUN groupadd 1000
 # run as www-data`s UID
-RUN usermod -u 1000 www-data	
+RUN usermod -u 1000 www-data
 
 WORKDIR /var/www/html
